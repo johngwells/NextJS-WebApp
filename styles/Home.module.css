@@ -36,7 +36,16 @@
 
 .heroImg {
   position: absolute;
-  top: 37%;
-  right: 10%;
+  top: 39%;
   z-index: 1;
 }
+
+@media screen and (min-width: 640px) {}
+
+@media screen and (min-width: 768px) {}
+
+@media screen and (min-width: 1024px) {}
+
+@media screen and (min-width: 1280px) {}
+
+@media screen and (min-width: 1536px) {}

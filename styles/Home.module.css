@@ -13,7 +13,7 @@
 }
 
 .title a {
-  color: #0070f3;
+  color: #82B5A5;
   text-decoration: none;
 }
 
@@ -38,6 +38,22 @@
   position: absolute;
   top: 39%;
   z-index: 1;
+  animation: fadeIn 1.5s linear;
+
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100%;
+  }
 }
 
 @media screen and (min-width: 640px) {}

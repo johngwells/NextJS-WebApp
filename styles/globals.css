@@ -1,4 +1,6 @@
-html,
+html {
+  background-color: #373b64;
+}
 body {
   padding: 0;
   margin: 0;
@@ -10,6 +12,18 @@ body {
   background-size: cover;
   color: #373b64;
   height: 100%;
+  clip-path: circle(75% at 89% 26%);
+  animation: 1s slideIn ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    margin-left: 75%;
+  }
+
+  to {
+    margin-left: 0%;
+  }
 }
 
 a {

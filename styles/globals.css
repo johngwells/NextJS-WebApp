@@ -1,5 +1,6 @@
 html {
   background-color: #373b64;
+  animation: fadeIn 1s;
 }
 body {
   padding: 0;
@@ -23,6 +24,16 @@ body {
 
   to {
     margin-left: 0%;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opactiy: 1;
   }
 }
 

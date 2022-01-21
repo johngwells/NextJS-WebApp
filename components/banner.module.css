@@ -2,7 +2,8 @@
   margin-top: -20rem;
 }
 .title {
-  font-size: 2rem;
+  font-family: Lora-Italic;
+  font-size: 2.5rem;
 }
 
 .title2 {
@@ -13,7 +14,7 @@
 
 .subTitle {
   text-align: center;
-  margin-top: -10px;
+  margin-top: -25px;
 }
 
 .button {
@@ -21,7 +22,7 @@
   background-color: #00C0F0;
   border: none;
   height: 40px;
-  width: 60%;
+  width: 200px;
   border-radius: 10px;
   font-size: 1.1em;
   position: absolute;

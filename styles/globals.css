@@ -20,3 +20,10 @@ a {
 * {
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: 'Lora-Italic';
+  font-style: normal;
+  font-weight: 500;
+  src: url(/fonts/Lora-Italic.ttf) format('truetype');
+}

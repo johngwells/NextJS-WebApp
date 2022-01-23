@@ -7,6 +7,8 @@ import Banner from '../components/banner';
 import heroPic from '../public/static/hero.png';
 import Card from '../components/card';
 
+import coffeeStores from './data/coffee-stores.json';
+
 export default function Home() {
   const handleOnClick = e => {
     console.log('Clicked');
@@ -27,19 +29,16 @@ export default function Home() {
           </div>
           <Banner buttonText='view stores nearby' onClick={handleOnClick} />
         </div>
+        {/* {console.log(coffeeStores)} */}
         <div className={styles.cardLayout}>
-          <Card
-            name='Dutch Bros'
-            imgUrl='/static/hero.png'
-            href='/coffee-store/dutch-bros'
-            className={styles.card}
-          />
-          <Card
-            name='Dutch Bros'
-            imgUrl='/static/hero.png'
-            href='/coffee-store/dutch-bros'
-            className={styles.card}
-          />
+          {coffeeStores.map(store => (
+            <Card
+              name={store.name}
+              imgUrl={store.imgUrl}
+              href={`/coffee-store/${store.id}`}
+              className={styles.card}
+            />
+          ))}
         </div>
       </main>
     </div>

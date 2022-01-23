@@ -41,6 +41,7 @@
 .heroImg {
   position: absolute;
   top: 38%;
+  margin-left: -2.5%;
   z-index: 1;
   animation: fadeIn 1.5s linear;
 }

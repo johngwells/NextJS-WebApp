@@ -32,7 +32,7 @@
   border-radius: 10px;
   font-size: 1.1em;
   position: absolute;
-  top: 65%;
+  top: 58%;
   z-index: 1;
   animation: buttonFadeIn linear 2s;
 }

@@ -35,12 +35,12 @@
 }
 
 .heroContainer {
-  height: 75vh;
+  height: 100vh;
 }
 
 .heroImg {
   position: absolute;
-  top: 39%;
+  top: 38%;
   z-index: 1;
   animation: fadeIn 1.5s linear;
 }

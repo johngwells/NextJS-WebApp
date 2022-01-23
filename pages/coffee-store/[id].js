@@ -6,6 +6,7 @@ const CoffeeStore = () => {
   return (
     <div>
       Coffee Store Page {router.query.id}
+      <br></br>
       <Link href='/'><a>Back to home</a></Link>
     </div>
   );

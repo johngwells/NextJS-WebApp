@@ -13,8 +13,22 @@ body {
   background-size: cover;
   color: #373b64;
   height: 100%;
-  clip-path: circle(75% at 89% 26%);
+  /* clip-path: circle(90% at 90% 26%);
   animation: 1s slideIn ease-in-out;
+  z-index: -1; */
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(17px);
+  -webkit-backdrop-filter: blur(17px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.glass:hover {
+  background: rgba(255, 255, 255, 0.3)
 }
 
 @keyframes slideIn {

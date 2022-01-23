@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css';
 import Banner from '../components/banner';
 
 import heroPic from '../public/static/hero.png';
+import Card from '../components/card';
 
 export default function Home() {
   const handleOnClick = e => {
@@ -20,10 +21,26 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <div className={styles.heroImg}>
-          <Image src={heroPic} />
+        <div className={styles.heroContainer}>
+          <div className={styles.heroImg}>
+            <Image src={heroPic} />
+          </div>
+          <Banner buttonText='view stores nearby' onClick={handleOnClick} />
         </div>
-        <Banner buttonText='view stores nearby' onClick={handleOnClick} />
+        <div className={styles.cardLayout}>
+          <Card
+            name='Dutch Bros'
+            imgUrl='/static/hero.png'
+            href='/coffee-store/dutch-bros'
+            className={styles.card}
+          />
+          <Card
+            name='Dutch Bros'
+            imgUrl='/static/hero.png'
+            href='/coffee-store/dutch-bros'
+            className={styles.card}
+          />
+        </div>
       </main>
     </div>
   );

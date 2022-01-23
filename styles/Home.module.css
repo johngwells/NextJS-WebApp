@@ -34,12 +34,30 @@
   text-align: center;
 }
 
+.heroContainer {
+  height: 75vh;
+}
+
 .heroImg {
   position: absolute;
   top: 39%;
   z-index: 1;
   animation: fadeIn 1.5s linear;
+}
 
+.cardLayout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.5rem;
+  row-gap: 1.5rem;
+}
+
+.card {
+  justify-content: center;
+}
+
+.footer {
+  text-align: center;
 }
 
 @keyframes fadeIn {

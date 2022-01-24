@@ -10,6 +10,23 @@ import Card from '../components/card';
 import coffeeStoresData from '../data/coffee-stores.json';
 
 export async function getStaticProps(context) {
+  // const latLong = '43.65267326999575,-79.39545615725015';
+  // const limit = 3;
+  // const query = 'coffee store';
+  try {
+    const response = await fetch(
+      'https://api.foursquare.com/v3/places/nearby?ll=36.114647,-115.172813&query=coffee&limit=3', {
+        "headers": {
+          'authorization': process.env.NEXT_PUBLIC_FOURSQUARE_API_KEY
+        }
+      });
+    // await JSON.parse(response)
+    const data = await response.json();
+    console.log(data.results);
+  } catch (error) {
+    console.log(error);
+  }
+
   return {
     props: {
       coffeeStores: coffeeStoresData

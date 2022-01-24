@@ -2,7 +2,21 @@
   width: 100%;
 }
 
-.cardHeader {
+.cardHeaderWrapper {
   display: flex;
   justify-content: center;
+}
+
+.cardHeader {
+  padding: .5rem;
+  text-align: center;
+}
+
+.cardImageWrapper {
+  margin-top: -1.75rem;
+  padding: 1rem;
+}
+
+.cardImage {
+  border-radius: .5rem;
 }

@@ -9,7 +9,15 @@ import Card from '../components/card';
 
 import coffeeStores from './data/coffee-stores.json';
 
-export default function Home() {
+export async function getStaticProps(context) {
+  return {
+    props: {
+      coffeeStores
+    }
+  };
+}
+
+export default function Home(props) {
   const handleOnClick = e => {
     console.log('Clicked');
   };
@@ -29,10 +37,10 @@ export default function Home() {
           </div>
           <Banner buttonText='view stores nearby' onClick={handleOnClick} />
         </div>
-        {/* {console.log(coffeeStores)} */}
         <div className={styles.cardLayout}>
-          {coffeeStores.map(store => (
+          {props.coffeeStores.map(store => (
             <Card
+              key={store.id}
               name={store.name}
               imgUrl={store.imgUrl}
               href={`/coffee-store/${store.id}`}

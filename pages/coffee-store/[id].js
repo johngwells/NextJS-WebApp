@@ -6,12 +6,11 @@ import Image from 'next/image';
 import styles from '../../styles/coffee-store.module.css';
 import cls from 'classnames';
 
-import coffeeStoresData from '../../data/coffee-stores.json';
 import { fetchCoffeeStores } from '../lib/coffee-stores';
 
 export async function getStaticProps(staticProps) {
   const params = staticProps.params;
-  console.log('params', params);
+  // console.log('params', params);
 
   const coffeeStoresData = await fetchCoffeeStores();
 
@@ -42,7 +41,6 @@ export async function getStaticPaths() {
 }
 
 const CoffeeStore = props => {
-  console.log('props', props);
   const router = useRouter();
 
   if (router.isFallback) {

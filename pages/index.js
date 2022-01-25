@@ -7,7 +7,6 @@ import Banner from '../components/banner';
 import heroPic from '../public/static/hero.png';
 import Card from '../components/card';
 
-import coffeeStoresData from '../data/coffee-stores.json';
 import { fetchCoffeeStores } from './lib/coffee-stores';
 
 export async function getStaticProps(context) {
@@ -42,7 +41,7 @@ export default function Home(props) {
         </div>
         {props.coffeeStores.length > 0 && (
           <>
-            <h2 className={styles.heading2}>Toronto Stores</h2>
+            <h2 className={styles.heading2}>Las Vegas Coffee Shops</h2>
             <div className={styles.cardLayout}>
               {props.coffeeStores.map(store => (
                 <Card

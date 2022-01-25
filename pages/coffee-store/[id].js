@@ -6,6 +6,11 @@ import Image from 'next/image';
 import styles from '../../styles/coffee-store.module.css';
 import cls from 'classnames';
 
+// font awesome
+import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+
 import { fetchCoffeeStores } from '../lib/coffee-stores';
 
 export async function getStaticProps(staticProps) {
@@ -63,7 +68,7 @@ const CoffeeStore = props => {
         <div className={styles.col1}>
           <div className={styles.linkWrapper}>
             <Link href='/'>
-              <a>Back to home</a>
+              <a><FontAwesomeIcon icon={faLongArrowAltLeft} /> Back to home</a>
             </Link>
           </div>
           <div className={styles.nameWrapper}>

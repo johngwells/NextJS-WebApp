@@ -1,3 +1,4 @@
+import { useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -7,11 +8,12 @@ import styles from '../../styles/coffee-store.module.css';
 import cls from 'classnames';
 
 // font awesome
-import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { fetchCoffeeStores } from '../lib/coffee-stores';
+import { StoreContext } from '../../store/store-context';
+import { isEmpty } from '../../utils';
 
 export async function getStaticProps(staticProps) {
   const params = staticProps.params;
@@ -20,7 +22,7 @@ export async function getStaticProps(staticProps) {
   const coffeeStoresData = await fetchCoffeeStores();
 
   const findCoffeeStoreById = coffeeStoresData.find(coffeeStore => {
-    return coffeeStore.id.toString() === params.id
+    return coffeeStore.id.toString() === params.id;
   });
 
   return {
@@ -45,14 +47,33 @@ export async function getStaticPaths() {
   };
 }
 
-const CoffeeStore = props => {
+const CoffeeStore = initialProps => {
   const router = useRouter();
 
   if (router.isFallback) {
     return <div>Loading. . .</div>;
   }
 
-  const { name, address, neighborhood, imgUrl } = props.coffeeStore;
+  const id = router.query.id;
+
+  const [coffeeStore, setCoffeStore] = useState(initialProps.coffeeStore);
+
+  const {
+    state: { coffeeStores }
+  } = useContext(StoreContext);
+
+  useEffect(() => {
+    if (isEmpty(initialProps.coffeeStore)) {
+      if (coffeeStores.length > 0) {
+        const findCoffeeStoreById = coffeeStores.find(coffeeStore => {
+          return coffeeStore.id.toString() === id;
+        });
+        setCoffeStore(findCoffeeStoreById);
+      }
+    }
+  }, [id]);
+
+  const { name, address, neighborhood, imgUrl } = coffeeStore;
 
   const handleUpvoteButton = () => {
     console.log('voted!');
@@ -68,7 +89,9 @@ const CoffeeStore = props => {
         <div className={styles.col1}>
           <div className={styles.linkWrapper}>
             <Link href='/'>
-              <a><FontAwesomeIcon icon={faLongArrowAltLeft} /> Back to home</a>
+              <a>
+                <FontAwesomeIcon icon={faLongArrowAltLeft} /> Back to home
+              </a>
             </Link>
           </div>
           <div className={styles.nameWrapper}>

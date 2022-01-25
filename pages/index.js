@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
@@ -10,8 +10,10 @@ import Card from '../components/card';
 
 import { fetchCoffeeStores } from './lib/coffee-stores';
 import useTrackLocation from '../hooks/use-track-location';
+import { ACTION_TYPES, StoreContext } from './_app';
 
-export async function getStaticProps(context) {
+
+export async function getStaticProps() {
   const coffeeStores = await fetchCoffeeStores();
 
   return {
@@ -22,9 +24,12 @@ export async function getStaticProps(context) {
 }
 
 export default function Home(props) {
-  const { handleTrackLocation, latLong, locationErrorMsg, isFindingLocation } = useTrackLocation();
+  const { handleTrackLocation, locationErrorMsg, isFindingLocation } = useTrackLocation();
 
-  const [coffeeStores, setCoffeeStores] = useState('');
+  const [coffeeStoresError, setCoffeeStoresError] = useState(null);
+
+  const { dispatch, state } = useContext(StoreContext);
+  const { coffeeStores, latLong } = state;
 
   console.log({ latLong, locationErrorMsg });
 
@@ -32,19 +37,26 @@ export default function Home(props) {
     if (latLong) {
       try {
         const fetchedStoresNearYou = await fetchCoffeeStores(latLong, 30);
-        console.log({ fetchCoffeeStores });
         // set coffee stores
-        setCoffeeStores(fetchedStoresNearYou);
+        dispatch({
+          type: ACTION_TYPES.SET_COFFEE_STORES,
+          payload: { coffeeStores: fetchedStoresNearYou}
+        })
       } catch (err) {
-        console.log({ err });
+        setCoffeeStoresError(err.message);
       }
     }
   }, [latLong]);
 
   const handleOnClick = () => {
-    console.log('Clicked');
     handleTrackLocation();
   };
+
+  const ErrorHandler = (errorHook) => {
+    return <div className={styles.locationError}>
+    something went wrong: {errorHook}
+  </div>
+  }
 
   return (
     <div className={styles.container}>
@@ -66,11 +78,7 @@ export default function Home(props) {
             onClick={handleOnClick}
           />
         </div>
-        {locationErrorMsg && (
-          <div className={styles.locationError}>
-            something went wrong: {locationErrorMsg}
-          </div>
-        )}
+        {locationErrorMsg && ErrorHandler(locationErrorMsg)}
 
         {coffeeStores.length > 0 && (
           <>
@@ -91,6 +99,7 @@ export default function Home(props) {
             </div>
           </>
         )}
+        {coffeeStoresError && ErrorHandler(coffeeStoresError)}
 
         {props.coffeeStores.length > 0 && (
           <>

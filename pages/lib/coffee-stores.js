@@ -5,9 +5,7 @@ const unsplashApi = createApi({
   accessKey: process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY
 });
 
-// const latlong = '36.105980,-115.213110';
 const query = 'coffee';
-// const limit = 6;
 
 const getUrlForCoffeeStores = (latLong, query, limit) => {
   return `https://api.foursquare.com/v3/places/nearby?ll=${latLong}&query=
@@ -46,7 +44,7 @@ export const fetchCoffeeStores = async (
         name: venue.name,
         neighborhood:
           venue.location.neighborhood || venue.location.crossStreet || '',
-        imgUrl: photos[idx],
+        imgUrl: photos[idx]
       };
     }) || []
   );

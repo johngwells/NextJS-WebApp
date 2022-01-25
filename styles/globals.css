@@ -28,7 +28,7 @@ body {
 }
 
 .glass:hover {
-  background: rgba(255, 255, 255, 0.5)
+  background: rgba(255, 255, 255, 0.6)
 }
 
 @keyframes slideIn {

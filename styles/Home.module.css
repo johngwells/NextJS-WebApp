@@ -35,22 +35,26 @@
 }
 
 .heroContainer {
-  height: 100vh;
+  height: 70vh;
 }
 
 .heroImg {
   position: absolute;
   top: 38%;
-  margin-left: -2.5%;
+  margin-left: -7%;
   z-index: 1;
   animation: fadeIn 1.5s linear;
 }
 
 .cardLayout {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(1, minmax(0, 1fr));
   column-gap: 1.5rem;
   row-gap: 1.5rem;
+}
+
+.cardLayout:hover {
+  cursor: pointer;
 }
 
 .card {
@@ -59,6 +63,10 @@
 
 .heading2 {
   font-size: 2.25rem;
+}
+
+.locationError {
+  color: red;
 }
 
 .footer {

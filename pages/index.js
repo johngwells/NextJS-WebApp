@@ -12,7 +12,6 @@ import { fetchCoffeeStores } from './lib/coffee-stores';
 import useTrackLocation from '../hooks/use-track-location';
 import { ACTION_TYPES, StoreContext } from '../store/store-context';
 
-
 export async function getStaticProps() {
   const coffeeStores = await fetchCoffeeStores();
 
@@ -24,7 +23,8 @@ export async function getStaticProps() {
 }
 
 export default function Home(props) {
-  const { handleTrackLocation, locationErrorMsg, isFindingLocation } = useTrackLocation();
+  const { handleTrackLocation, locationErrorMsg, isFindingLocation } =
+    useTrackLocation();
 
   const [coffeeStoresError, setCoffeeStoresError] = useState(null);
 
@@ -36,12 +36,17 @@ export default function Home(props) {
   useEffect(async () => {
     if (latLong) {
       try {
-        const fetchedStoresNearYou = await fetchCoffeeStores(latLong, 30);
-        // set coffee stores
+        const response = await fetch(
+          `/api/getCoffeeStoresByLocation/?latLong=${latLong}&limit=30`
+        );
+
+        const coffeeStores = await response.json();
+
         dispatch({
           type: ACTION_TYPES.SET_COFFEE_STORES,
-          payload: { coffeeStores: fetchedStoresNearYou}
-        })
+          payload: { coffeeStores: coffeeStores }
+        });
+        setCoffeeStoresError('');
       } catch (err) {
         setCoffeeStoresError(err.message);
       }
@@ -52,11 +57,13 @@ export default function Home(props) {
     handleTrackLocation();
   };
 
-  const ErrorHandler = (errorHook) => {
-    return <div className={styles.locationError}>
-    something went wrong: {errorHook}
-  </div>
-  }
+  const ErrorHandler = errorHook => {
+    return (
+      <div className={styles.locationError}>
+        something went wrong: {errorHook}
+      </div>
+    );
+  };
 
   return (
     <div className={styles.container}>

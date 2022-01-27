@@ -34,7 +34,6 @@ export const fetchCoffeeStores = async (
     }
   });
   const data = await response.json();
-  console.log(data);
 
   return (
     data.results?.map((venue, idx) => {
@@ -42,8 +41,7 @@ export const fetchCoffeeStores = async (
         id: venue.fsq_id,
         address: venue.location.address || '',
         name: venue.name,
-        neighborhood:
-          venue.location.neighborhood || venue.location.crossStreet || '',
+        neighborhood: venue.location.neighborhood || venue.location.crossStreet || '',
         imgUrl: photos[idx]
       };
     }) || []

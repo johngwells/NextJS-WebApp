@@ -47,6 +47,7 @@ export async function getStaticPaths() {
   };
 }
 
+// anything we get from getStaticProps its good to call it initialProps
 const CoffeeStore = initialProps => {
   const router = useRouter();
 
@@ -56,19 +57,53 @@ const CoffeeStore = initialProps => {
 
   const id = router.query.id;
 
+  // this will be the source of truth to get values
+  // if the value is empty, go into the useEffect & check & set the coffeeStore
   const [coffeeStore, setCoffeStore] = useState(initialProps.coffeeStore);
 
   const {
     state: { coffeeStores }
   } = useContext(StoreContext);
 
+  const handleCreateCoffeeStore = async coffeeStore => {
+    try {
+      const { id, name, address, imgUrl, neighborhood, voting } = coffeeStore;
+      const response = await fetch('/api/createCoffeeStore', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id,
+          name,
+          address: address || '',
+          neighborhood: neighborhood || '',
+          imgUrl,
+          voting: 0
+        })
+      });
+      const dbCoffeeStore = await response.json();
+      console.log({ dbCoffeeStore });
+    } catch (err) {
+      console.error('Error creating coffee store', err);
+    }
+  };
+
+  // anytime id would change the route will change
+  // isEmpty: will check if getStaticProps is empty an empty object
+  // next line: checks if there are any values already stored
+  // then set the coffeeStore found
   useEffect(() => {
     if (isEmpty(initialProps.coffeeStore)) {
       if (coffeeStores.length > 0) {
-        const findCoffeeStoreById = coffeeStores.find(coffeeStore => {
+        const findCoffeeStoreContext = coffeeStores.find(coffeeStore => {
           return coffeeStore.id.toString() === id;
         });
-        setCoffeStore(findCoffeeStoreById);
+
+        if (findCoffeeStoreContext) {
+          setCoffeStore(findCoffeeStoreContext);
+          handleCreateCoffeeStore(findCoffeeStoreContext);
+        }
       }
     }
   }, [id]);
@@ -84,7 +119,6 @@ const CoffeeStore = initialProps => {
       <Head>
         <title>{name}</title>
       </Head>
-      {/* Coffee Store Page {router.query.id} */}
       <div className={styles.container}>
         <div className={styles.col1}>
           <div className={styles.linkWrapper}>

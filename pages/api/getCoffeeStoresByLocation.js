@@ -12,8 +12,6 @@ const getCoffeeStoresByLocation = async (req, res) => {
     res.status(500);
     res.json({ message: 'Oh no! Something went wrong', err });
   }
-
-  // return
 };
 
 export default getCoffeeStoresByLocation;

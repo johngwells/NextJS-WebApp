@@ -83,7 +83,7 @@ const CoffeeStore = initialProps => {
         })
       });
       const dbCoffeeStore = await response.json();
-      console.log({ dbCoffeeStore });
+      // console.log({ dbCoffeeStore });
     } catch (err) {
       console.error('Error creating coffee store', err);
     }
@@ -104,9 +104,12 @@ const CoffeeStore = initialProps => {
           setCoffeStore(findCoffeeStoreContext);
           handleCreateCoffeeStore(findCoffeeStoreContext);
         }
-      }
+      } 
+    } else { 
+      // SSG - creating store for statically generated props
+      handleCreateCoffeeStore(initialProps.coffeeStore);
     }
-  }, [id]);
+  }, [id, initialProps, initialProps.coffeeStore]);
 
   const { name, address, neighborhood, imgUrl } = coffeeStore;
 

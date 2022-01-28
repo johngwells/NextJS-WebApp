@@ -37,7 +37,7 @@ const createCoffeeStore = async (req, res) => {
                   id,
                   name,
                   address,
-                  neighborhood,
+                  neighborhood: neighborhood.toString() || '',
                   voting,
                   imgUrl
                 }

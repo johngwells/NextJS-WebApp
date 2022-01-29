@@ -1,13 +1,4 @@
-import { table } from '../lib/airtable';
-
-const accessRecords = records => {
-  return records.map(record => {
-    return {
-      recordId: record.id,
-      ...record.fields
-    };
-  });
-};
+import { table, accessRecords, findRecordByFilter } from '../lib/airtable';
 
 const createCoffeeStore = async (req, res) => {
   if (req.method === 'POST') {
@@ -16,17 +7,8 @@ const createCoffeeStore = async (req, res) => {
     try {
       if (id) {
         // find a record
-        const findCoffeeStoreRecords = await table
-          .select({
-            filterByFormula: `id="${id}"`
-          })
-          .firstPage();
-
-        // no need for findCoffee.length !== 0
-        // since 0 is a falsy value, you just check .length
-        if (findCoffeeStoreRecords.length) {
-          const records = accessRecords(findCoffeeStoreRecords);
-          console.log(records);
+        const records = await findRecordByFilter(id);
+        if (records.length) {
           res.json({ message: 'record is already stored', records });
         } else {
           // create a record

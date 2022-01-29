@@ -59,10 +59,13 @@ const CoffeeStore = initialProps => {
   // this will be the source of truth to get values
   // if the value is empty, go into the useEffect, check & set the coffeeStore
   const [coffeeStore, setCoffeeStore] = useState(initialProps.coffeeStore);
-  const [votingCount, setVotingCount] = useState(0);
+
+  // Dynamic Data from foursquare
   const {
     state: { coffeeStores }
   } = useContext(StoreContext);
+
+  const [votingCount, setVotingCount] = useState(0);
   
   const handleCreateCoffeeStore = async coffeeStore => {
     try {
@@ -98,7 +101,6 @@ const CoffeeStore = initialProps => {
         const coffeeStoreContext = coffeeStores.find(coffeeStore => {
           return coffeeStore.id.toString() === id;
         });
-
         if (coffeeStoreContext) {
           setCoffeeStore(coffeeStoreContext);
           handleCreateCoffeeStore(coffeeStoreContext);
@@ -112,7 +114,6 @@ const CoffeeStore = initialProps => {
 
   const { name, address, neighborhood, imgUrl } = coffeeStore;
 
-  
   const fetcher = (url) => fetch(url).then((res) => res.json());
   const { data, error } = useSWR(`/api/getCoffeeStoreById?id=${id}`, fetcher);
 

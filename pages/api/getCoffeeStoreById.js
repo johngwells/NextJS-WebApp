@@ -11,7 +11,7 @@ const getCoffeeStoreById = async (req, res) => {
       // no need for findCoffee.length !== 0
       // since 0 is a falsy value, you just check .length
       if (record.length) {
-        res.json({ message: `id found ${id}`, record: record });
+        res.json(record);
       } else {
         res.status(400).json({ message: 'id could not be found' });
       }

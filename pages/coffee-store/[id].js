@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
 
+import useSWR from 'swr';
+
 import styles from '../../styles/coffee-store.module.css';
 import cls from 'classnames';
 
@@ -17,10 +19,8 @@ import { isEmpty } from '../../utils';
 
 export async function getStaticProps(staticProps) {
   const params = staticProps.params;
-  // console.log('params', params);
 
   const coffeeStoresData = await fetchCoffeeStores();
-
   const findCoffeeStoreById = coffeeStoresData.find(coffeeStore => {
     return coffeeStore.id.toString() === params.id;
   });
@@ -50,7 +50,6 @@ export async function getStaticPaths() {
 // anything we get from getStaticProps its good to call it initialProps
 const CoffeeStore = initialProps => {
   const router = useRouter();
-
   if (router.isFallback) {
     return <div>Loading. . .</div>;
   }
@@ -58,16 +57,16 @@ const CoffeeStore = initialProps => {
   const id = router.query.id;
 
   // this will be the source of truth to get values
-  // if the value is empty, go into the useEffect & check & set the coffeeStore
-  const [coffeeStore, setCoffeStore] = useState(initialProps.coffeeStore);
-
+  // if the value is empty, go into the useEffect, check & set the coffeeStore
+  const [coffeeStore, setCoffeeStore] = useState(initialProps.coffeeStore);
+  const [votingCount, setVotingCount] = useState(0);
   const {
     state: { coffeeStores }
   } = useContext(StoreContext);
-
+  
   const handleCreateCoffeeStore = async coffeeStore => {
     try {
-      const { id, name, address, imgUrl, neighborhood, voting } = coffeeStore;
+      const { id, name, address, neighborhood, imgUrl, voting } = coffeeStore;
       const response = await fetch('/api/createCoffeeStore', {
         method: 'POST',
         headers: {
@@ -76,36 +75,36 @@ const CoffeeStore = initialProps => {
         body: JSON.stringify({
           id,
           name,
-          address: address || '',
+          address,
           neighborhood: neighborhood || '',
           imgUrl,
           voting: 0
         })
       });
       const dbCoffeeStore = await response.json();
-      // console.log({ dbCoffeeStore });
+      console.log({ dbCoffeeStore });
     } catch (err) {
       console.error('Error creating coffee store', err);
     }
   };
 
   // anytime id would change the route will change
-  // isEmpty: will check if getStaticProps is empty an empty object
+  // isEmpty: will check if getStaticProps is an empty object
   // next line: checks if there are any values already stored
   // then set the coffeeStore found
   useEffect(() => {
     if (isEmpty(initialProps.coffeeStore)) {
       if (coffeeStores.length > 0) {
-        const findCoffeeStoreContext = coffeeStores.find(coffeeStore => {
+        const coffeeStoreContext = coffeeStores.find(coffeeStore => {
           return coffeeStore.id.toString() === id;
         });
 
-        if (findCoffeeStoreContext) {
-          setCoffeStore(findCoffeeStoreContext);
-          handleCreateCoffeeStore(findCoffeeStoreContext);
+        if (coffeeStoreContext) {
+          setCoffeeStore(coffeeStoreContext);
+          handleCreateCoffeeStore(coffeeStoreContext);
         }
-      } 
-    } else { 
+      }
+    } else {
       // SSG - creating store for statically generated props
       handleCreateCoffeeStore(initialProps.coffeeStore);
     }
@@ -113,12 +112,28 @@ const CoffeeStore = initialProps => {
 
   const { name, address, neighborhood, imgUrl } = coffeeStore;
 
-  const [votingCount, setVotingCount] = useState(1);
+  
+  const fetcher = (url) => fetch(url).then((res) => res.json());
+  const { data, error } = useSWR(`/api/getCoffeeStoreById?id=${id}`, fetcher);
+
+  // get id: data from useSWR
+  useEffect(() => {
+    if (data && data.length > 0) {
+      console.log('data from SWR', data);
+      setCoffeeStore(data[0]);
+
+      setVotingCount(data[0].voting);
+    }
+  }, [data]);
 
   const handleUpvoteButton = () => {
     console.log('voted!');
     setVotingCount(votingCount + 1);
   };
+
+  if (error) {
+    return <div>Something went wrong retrieving coffee store</div>;
+  }
 
   return (
     <div className={styles.layout}>

@@ -28,7 +28,7 @@ const createCoffeeStore = async (req, res) => {
             
             const record = accessRecords(createRecord);
             console.log(record);
-            res.json({ message: 'created a record', record: record });
+            res.json(record);
           } else {
             res.status(400);
             res.json({ message: 'name is missing' });

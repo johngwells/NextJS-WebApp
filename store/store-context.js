@@ -28,6 +28,7 @@ const StoreProvider = ({ children }) => {
     latLong: '',
     coffeeStores: []
   };
+  
   const [state, dispatch] = useReducer(storeReducer, initialState);
 
   return (

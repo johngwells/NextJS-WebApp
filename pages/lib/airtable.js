@@ -14,7 +14,7 @@ const accessRecords = records => {
   });
 };
 
-const findRecordByFilter = async (id) => {
+const findRecordByFilter = async id => {
   const findCoffeeStoreRecords = await table
     .select({
       filterByFormula: `id="${id}"`

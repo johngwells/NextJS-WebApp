@@ -1,4 +1,4 @@
-import { table, findRecordByFilter, accessRecords } from '../lib/airtable';
+import { table, findRecordByFilter, accessRecords } from '../../lib/airtable';
 
 const favoriteCoffeeStoreById = async (req, res) => {
   if (req.method === 'PUT') {

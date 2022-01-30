@@ -8,7 +8,7 @@ import Banner from '../components/banner';
 import heroPic from '../public/static/hero.png';
 import Card from '../components/card';
 
-import { fetchCoffeeStores } from './lib/coffee-stores';
+import { fetchCoffeeStores } from '../lib/coffee-stores';
 import useTrackLocation from '../hooks/use-track-location';
 import { ACTION_TYPES, StoreContext } from '../store/store-context';
 

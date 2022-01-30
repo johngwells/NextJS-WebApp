@@ -1,4 +1,4 @@
-import { fetchCoffeeStores } from '../lib/coffee-stores';
+import { fetchCoffeeStores } from '../../lib/coffee-stores';
 
 const getCoffeeStoresByLocation = async (req, res) => {
   // configure latlong

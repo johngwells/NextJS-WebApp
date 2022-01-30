@@ -13,7 +13,7 @@ import cls from 'classnames';
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { fetchCoffeeStores } from '../lib/coffee-stores';
+import { fetchCoffeeStores } from '../../lib/coffee-stores'
 import { StoreContext } from '../../store/store-context';
 import { isEmpty } from '../../utils';
 

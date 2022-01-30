@@ -45,7 +45,7 @@
   top: 37%;
   margin-left: -7%;
   z-index: 1;
-  animation: fadeIn 1s linear;
+  animation: fadeIn 1.7s linear;
 }
 
 .cardLayout {

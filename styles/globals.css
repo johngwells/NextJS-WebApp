@@ -1,5 +1,4 @@
 html {
-  background-color: #373b64;
   animation: fadeIn 1s;
 }
 body {
@@ -13,9 +12,6 @@ body {
   background-size: cover;
   color: #373b64;
   height: 100%;
-  /* clip-path: circle(90% at 90% 26%);
-  animation: 1s slideIn ease-in-out;
-  z-index: -1; */
 }
 
 .glass {

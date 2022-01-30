@@ -15,8 +15,32 @@
 .cardImageWrapper {
   margin-top: -1.75rem;
   padding: 1rem;
+  margin-bottom: 1rem;
 }
 
 .cardImage {
   border-radius: .5rem;
+}
+
+@media screen and (min-width: 480px) {
+  .cardImageWrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 640px) {
+
+}
+
+@media screen and (min-width: 1024px) {
+  .cardHeader {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  .cardHeader {
+    font-size: 1.8rem;
+  }
 }

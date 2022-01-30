@@ -10,6 +10,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 }
 
 .title a {
@@ -36,14 +37,15 @@
 
 .heroContainer {
   height: 70vh;
+  /* position: relative; */
 }
 
-.heroImg {
+.imageContainer {
   position: absolute;
-  top: 38%;
+  top: 37%;
   margin-left: -7%;
   z-index: 1;
-  animation: fadeIn 1.5s linear;
+  animation: fadeIn 1s linear;
 }
 
 .cardLayout {
@@ -62,7 +64,7 @@
 }
 
 .heading2 {
-  font-size: 2.25rem;
+  font-size: 1.6rem;
 }
 
 .locationError {
@@ -87,12 +89,77 @@
   }
 }
 
-@media screen and (min-width: 640px) {}
+@media screen and (min-width: 480px) {
+  .imageContainer {
+    top: 40%;
+    /* margin-left: -7%; */
+  }
 
-@media screen and (min-width: 768px) {}
+  .heroContainer {
+    height: 85vh;
+    /* position: relative; */
+  }
 
-@media screen and (min-width: 1024px) {}
+  .cardLayout {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    column-gap: 1.5rem;
+    row-gap: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .cardLayout {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .heroContainer {
+    height: 82vh;
+    /* position: relative; */
+  }
+
+  .imageContainer {
+    top: 35%;
+    /* margin-left: -7%; */
+  }
+
+  .cardLayout {
+    margin-top: 1rem;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+  }
+
+  .heading2 {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .heroContainer {
+    height: 82vh;
+    /* position: relative; */
+  }
+
+  .imageContainer {
+    top: 45%;
+    margin-left: -3%;
+  }
+
+  .cardLayout {
+    margin-top: 1rem;
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+  }
+}
 
 @media screen and (min-width: 1280px) {}
 
-@media screen and (min-width: 1536px) {}
+@media screen and (min-width: 1536px) {
+  .imageContainer {
+    margin-left: -1%;
+  }
+}

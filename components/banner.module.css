@@ -1,9 +1,8 @@
-.container {
-  margin-top: 10rem;
-}
+.container {}
+
 .title {
   font-family: Lora-Italic;
-  font-size: 2.5rem;
+  font-size: 4rem;
 }
 
 .title1 {
@@ -18,8 +17,8 @@
 }
 
 .subTitle {
-  text-align: center;
-  margin-top: -25px;
+  margin-left: .6rem;
+  margin-top: -2.5rem;
   animation: fadeIn linear 2s;
 }
 
@@ -32,7 +31,11 @@
   border-radius: 10px;
   font-size: 1.1em;
   position: absolute;
-  top: 58%;
+  top: 60%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   z-index: 1;
   animation: buttonFadeIn linear 2s;
 }
@@ -64,7 +67,7 @@
 
 @keyframes titleTwoIn {
   from {
-    margin-left: 100%;
+    margin-left: 0%;
   }
 
   90% {
@@ -104,6 +107,46 @@
   }
 }
 
+@media screen and (min-width: 480px) {
+  .subTitle {
+    font-size: 1.2rem;
+  }
+  .button {
+    top: 63%;
+  }
+}
+
 @media screen and (min-width: 640px) {
-  
+  .subTitle {
+    font-size: 1.3rem;
+  }
+  .button {
+    top: 63%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .button {
+    top: 58%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .title {
+    font-size: 5rem;
+  }
+  .subTitle {
+    font-size: 1.6rem;
+    margin-top: -3.5rem;
+  }
+  .button {
+    top: 68%;
+    align-items: left;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  .subTitle {
+    font-size: 1.6rem;
+  }
 }

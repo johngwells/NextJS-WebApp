@@ -66,7 +66,7 @@ const CoffeeStore = initialProps => {
   } = useContext(StoreContext);
 
   const [votingCount, setVotingCount] = useState(0);
-  
+
   const handleCreateCoffeeStore = async coffeeStore => {
     try {
       const { id, name, address, neighborhood, imgUrl, voting } = coffeeStore;
@@ -114,7 +114,7 @@ const CoffeeStore = initialProps => {
 
   const { name, address, neighborhood, imgUrl } = coffeeStore;
 
-  const fetcher = (url) => fetch(url).then((res) => res.json());
+  const fetcher = url => fetch(url).then(res => res.json());
   const { data, error } = useSWR(`/api/getCoffeeStoreById?id=${id}`, fetcher);
 
   // get id: data from useSWR
@@ -127,9 +127,27 @@ const CoffeeStore = initialProps => {
     }
   }, [data]);
 
-  const handleUpvoteButton = () => {
-    console.log('voted!');
-    setVotingCount(votingCount + 1);
+  const handleUpdateVote = async () => {
+    console.log('Upvoted!!!')
+    try {
+      const response = await fetch('/api/favoriteCoffeeStoreById', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id,
+        })
+      });
+      const dbCoffeeStore = await response.json();
+
+      if (dbCoffeeStore && dbCoffeeStore.length > 0) {
+        let count = votingCount + 1;
+        setVotingCount(count)
+      }
+    } catch (err) {
+      console.error('Error upvoting the coffee store');
+    }
   };
 
   if (error) {
@@ -179,7 +197,7 @@ const CoffeeStore = initialProps => {
             <Image src='/static/icons/star.svg' width='24' height='24' />
             <p className={styles.text}>{votingCount}</p>
           </div>
-          <button className={styles.upvoteButton} onClick={handleUpvoteButton}>
+          <button className={styles.upvoteButton} onClick={handleUpdateVote}>
             Up vote!
           </button>
         </div>

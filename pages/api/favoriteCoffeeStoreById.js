@@ -5,9 +5,9 @@ const favoriteCoffeeStoreById = async (req, res) => {
     try {
       // const { id, voting } = req.body;
       const { id, voting } = req.body;
-      console.log({ id, voting })
+      console.log({ id, voting });
       if (id) {
-        console.log({ id })
+        console.log({ id });
         const records = await findRecordByFilter(id);
         if (records.length) {
           const record = records[0];
@@ -21,14 +21,16 @@ const favoriteCoffeeStoreById = async (req, res) => {
           ]);
           // update record
           if (updateRecord) {
-            const update = accessRecords(updateRecord)
-            res.json(update)
+            const update = accessRecords(updateRecord);
+            res.json(update);
           }
         } else {
-          res.status(400).json({ message: 'Coffee store with id does not exist'})
+          res
+            .status(400)
+            .json({ message: 'Coffee store with id does not exist' });
         }
       } else {
-        res.status(400).json({ message: 'id is missing'})
+        res.status(400).json({ message: 'id is missing' });
       }
     } catch (err) {
       console.error('Error updating');

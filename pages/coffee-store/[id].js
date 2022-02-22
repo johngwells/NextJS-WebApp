@@ -13,7 +13,7 @@ import cls from 'classnames';
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { fetchCoffeeStores } from '../../lib/coffee-stores'
+import { fetchCoffeeStores } from '../../lib/coffee-stores';
 import { StoreContext } from '../../store/store-context';
 import { isEmpty } from '../../utils';
 
@@ -136,14 +136,14 @@ const CoffeeStore = initialProps => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          id,
+          id
         })
       });
       const dbCoffeeStore = await response.json();
 
       if (dbCoffeeStore && dbCoffeeStore.length > 0) {
         let count = votingCount + 1;
-        setVotingCount(count)
+        setVotingCount(count);
       }
     } catch (err) {
       console.error('Error upvoting the coffee store');
@@ -158,6 +158,7 @@ const CoffeeStore = initialProps => {
     <div className={styles.layout}>
       <Head>
         <title>{name}</title>
+        <meta name='description' content={`${name} coffee store`} />
       </Head>
       <div className={styles.container}>
         <div className={styles.col1}>
